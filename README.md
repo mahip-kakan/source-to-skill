@@ -1,48 +1,48 @@
 # Source to Skill
 
-Turn **your** work product into an agent skill: transcripts, memos, decks, research dumps, interview notes.
+Point the agent at notes you already have. It turns them into a skill it can load later — without stuffing the whole pile into one prompt.
 
-Not a book piracy tool. Do not publish distilled commercial books. The same *shape* as a high-quality book→skill converter (index + on-demand chapters) — the **input is work you own or have rights to**.
+Use it on transcripts, memos, decks, research dumps, interview notes. Use it on work you own.
+
+## How you use it
+
+**1. Put the source in front of the agent**
+
+A file, a folder, or a glob. Example:
 
 ```
-/source-to-skill path/to/notes.md my-method
+/source-to-skill ./notes/q3-discovery.md discovery-method
 ```
 
-You get a skill folder the agent can load without stuffing the whole corpus into one prompt.
+**2. What you get back**
 
-## What it writes
+A skill folder, usually at `~/.claude/skills/discovery-method/`:
 
-| File | Job |
+| File | What you do with it |
 |---|---|
-| `SKILL.md` | Mental models, decision rules, anti-patterns, chapter index (~4k tokens cap) |
-| `sources/s01-*.md` | One source (or section) per file, loaded on demand |
-| `glossary.md` | Terms with back-references |
-| `patterns.md` | Techniques: when to use, how, when not |
-| `cheatsheet.md` | Decision tables |
-| `GAPS.md` | `[NEED: …]` — claims that were not in the source |
+| `SKILL.md` | The method — models, rules, when *not* to use it |
+| `sources/` | One section per file; the agent opens only what it needs |
+| `glossary.md` | Terms with pointers back to the source |
+| `patterns.md` | Techniques, including when not to use them |
+| `cheatsheet.md` | Fast decision tables |
+| `GAPS.md` | Questions the source never answered |
 
-If a rule is not in the source, it does not go in the skill. Hallucinated frameworks are a fail.
+If a rule was not in the source, it is not in the skill. Gaps are listed, not filled with a famous framework.
 
-## Install
+**3. Work with the new skill**
 
-```bash
-git clone https://github.com/mahip-kakan/source-to-skill.git
-cp -R source-to-skill/skills/source-to-skill ~/.claude/skills/source-to-skill
+```
+/discovery-method
+/discovery-method s03
+/discovery-method when not to interview
 ```
 
-Then point it at a file, folder, or glob you have the right to use.
+The agent reads the index, then one source file — not the entire dump.
 
-## Why not “book to skill”
+**4. Rights**
 
-[virgiliojr94/book-to-skill](https://github.com/virgiliojr94/book-to-skill) (~23k stars) proved the architecture: structure, not a summary; chapters on demand. Publishing someone else’s book as a public skill is a copyright problem. This repo is for **methods you produced** — consulting notes, product briefs, red-teams, research.
+Personal notes, your decks, meetings you own: go. Do not ask it to publish someone else’s book as a public skill.
 
-## Inspired by
+**5. Where it lives**
 
-- On-demand skill layout: book-to-skill (mechanism only; files here are original)
-- Sources → notes as a research object: [lfnovo/open-notebook](https://github.com/lfnovo/open-notebook) (~37k) — we export a **skill**, not a chat UI
-
-See `CREDITS.md`.
-
-## License
-
-MIT. Built by Mahip Kakan.
+Open this repo in Claude Code, Cursor, or Cowork so `/source-to-skill` is available, then run it on a path in your workspace.
